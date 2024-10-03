@@ -13,7 +13,7 @@ export default function TopBar() {
 
     return (
         <nav className="fixed top-0 left-0 right-0 bg-background rounded-full m-2 border shadow-md z-10 max-w-md mx-auto">
-            <div className="flex items-center p-2 max-w-screen-sm mx-auto gap-2">
+            <div className="flex items-center p-2 w-full mx-auto gap-2">
                 <Link href="/" className="flex-1 flex items-center">
                     <Button variant="ghost" size="icon">
                         <Image
