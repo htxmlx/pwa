@@ -25,6 +25,7 @@ import { useSearchParams } from "next/navigation";
 import MapFilter from "./filter";
 
 import "mapbox-gl/dist/mapbox-gl.css";
+import { PostWithRating } from "@/features/posts/types";
 
 const TOKEN =
     "pk.eyJ1IjoiYXprcml2ZW4xNiIsImEiOiJjbGhma3IxaWcxN3c3M2VyM3VhcGsxcHk3In0.pto_0eshW9NHMP-m1O_blg";
@@ -36,7 +37,7 @@ const mapStyles = {
 };
 
 interface MapProps {
-    data: Post[];
+    data: PostWithRating[];
 }
 
 export default function Map({ data }: MapProps) {
