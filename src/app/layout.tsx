@@ -1,5 +1,10 @@
 import type { Metadata, Viewport } from "next";
 import localFont from "next/font/local";
+import { ClerkProvider } from "@clerk/nextjs";
+import { ThemeProvider } from "@/components/theme-provider";
+import RQProvider from "@/components/react-query-provider";
+import { Toaster } from "sonner";
+
 import "./globals.css";
 
 const geistSans = localFont({
@@ -64,12 +69,35 @@ export default function RootLayout({
     children: React.ReactNode;
 }>) {
     return (
-        <html lang="en">
-            <body
-                className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-            >
-                {children}
-            </body>
-        </html>
+        <ClerkProvider
+            appearance={{
+                variables: {
+                    colorPrimary: "hsl(263.4, 70%, 50.4%)",
+                },
+                elements: {
+                    navbarMobileMenuRow: {
+                        background: "transparent",
+                    },
+                },
+            }}
+        >
+            <html lang="en">
+                <body
+                    className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+                >
+                    <ThemeProvider
+                        attribute="class"
+                        defaultTheme="system"
+                        enableSystem
+                        disableTransitionOnChange
+                    >
+                        <RQProvider>
+                            {children}
+                            <Toaster />
+                        </RQProvider>
+                    </ThemeProvider>
+                </body>
+            </html>
+        </ClerkProvider>
     );
 }
