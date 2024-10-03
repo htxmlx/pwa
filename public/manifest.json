@@ -1,7 +1,7 @@
 {
     "$schema": "https://json.schemastore.org/web-manifest",
-    "name": "The PWA Plugin for Next.js",
-    "short_name": "next-pwa",
+    "name": "NISU Boarding House Mapping System",
+    "short_name": "NISU BH",
     "theme_color": "#171717",
     "background_color": "#171717",
     "display": "fullscreen",
