@@ -7,6 +7,7 @@ import { Toaster } from "sonner";
 
 import "./globals.css";
 import "react-lazy-load-image-component/src/effects/blur.css";
+import { siteConfig } from "@/config/site";
 
 const geistSans = localFont({
     src: "./fonts/GeistVF.woff",
@@ -19,23 +20,18 @@ const geistMono = localFont({
     weight: "100 900",
 });
 
-const APP_NAME = "PWA App";
-const APP_DEFAULT_TITLE = "My Awesome PWA App";
-const APP_TITLE_TEMPLATE = "%s - PWA App";
-const APP_DESCRIPTION = "Best PWA app in the world!";
-
 export const metadata: Metadata = {
-    applicationName: APP_NAME,
+    applicationName: siteConfig.name,
     title: {
-        default: APP_DEFAULT_TITLE,
-        template: APP_TITLE_TEMPLATE,
+        default: siteConfig.name,
+        template: `%s - ${siteConfig.name}`,
     },
-    description: APP_DESCRIPTION,
+    description: siteConfig.description,
     manifest: "/manifest.json",
     appleWebApp: {
         capable: true,
         statusBarStyle: "default",
-        title: APP_DEFAULT_TITLE,
+        title: siteConfig.name,
         // startUpImage: [],
     },
     formatDetection: {
@@ -43,20 +39,20 @@ export const metadata: Metadata = {
     },
     openGraph: {
         type: "website",
-        siteName: APP_NAME,
+        siteName: siteConfig.name,
         title: {
-            default: APP_DEFAULT_TITLE,
-            template: APP_TITLE_TEMPLATE,
+            default: siteConfig.name,
+            template: "",
         },
-        description: APP_DESCRIPTION,
+        description: siteConfig.description,
     },
     twitter: {
         card: "summary",
         title: {
-            default: APP_DEFAULT_TITLE,
-            template: APP_TITLE_TEMPLATE,
+            default: siteConfig.name,
+            template: "",
         },
-        description: APP_DESCRIPTION,
+        description: siteConfig.description,
     },
 };
 
@@ -83,6 +79,10 @@ export default function RootLayout({
             }}
         >
             <html lang="en">
+                <meta
+                    name="google-site-verification"
+                    content="_-DsPVM1mKXI1ed-cTqkSHsCYYUB6PbqhC140RyX1kg"
+                />
                 <body
                     className={`${geistSans.variable} ${geistMono.variable} antialiased`}
                 >

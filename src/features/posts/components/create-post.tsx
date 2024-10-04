@@ -3,8 +3,7 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import { UploadButton } from '@/lib/uploadthing'
-
+import { UploadButton } from "@/lib/uploadthing";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -16,16 +15,24 @@ import {
     FormLabel,
     FormMessage,
 } from "@/components/ui/form";
-import { useEffect, type ChangeEvent, type FormEvent } from "react";
+import { useEffect, useState, type ChangeEvent, type FormEvent } from "react";
 
 import { CreatePostSchema } from "../types";
 import { toast } from "sonner";
 import { Input } from "@/components/ui/input";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import {
+    Select,
+    SelectContent,
+    SelectItem,
+    SelectTrigger,
+    SelectValue,
+} from "@/components/ui/select";
 import { Checkbox } from "@/components/ui/checkbox";
 import { createPost } from "../api/create-posts";
+import Image from "next/image";
 
 export default function CreatePostForm() {
+    const [uploadedImages, setUploadedImages] = useState<string[]>();
     const form = useForm<z.infer<typeof CreatePostSchema>>({
         resolver: zodResolver(CreatePostSchema),
         defaultValues: {
@@ -103,6 +110,7 @@ export default function CreatePostForm() {
                                     <FormControl>
                                         <Input
                                             {...field}
+                                            type="number"
                                             onChange={(
                                                 event: ChangeEvent<HTMLInputElement>
                                             ) =>
@@ -129,6 +137,7 @@ export default function CreatePostForm() {
                                     <FormControl>
                                         <Input
                                             {...field}
+                                            type="number"
                                             onChange={(
                                                 event: ChangeEvent<HTMLInputElement>
                                             ) =>
@@ -155,6 +164,7 @@ export default function CreatePostForm() {
                                     <FormControl>
                                         <Input
                                             {...field}
+                                            type="number"
                                             onChange={(
                                                 event: ChangeEvent<HTMLInputElement>
                                             ) =>
@@ -247,6 +257,7 @@ export default function CreatePostForm() {
                                     <FormControl>
                                         <Input
                                             {...field}
+                                            type="number"
                                             id="latitude"
                                             onChange={(
                                                 event: ChangeEvent<HTMLInputElement>
@@ -273,6 +284,7 @@ export default function CreatePostForm() {
                                     <FormControl>
                                         <Input
                                             {...field}
+                                            type="number"
                                             id="longitude"
                                             onChange={(
                                                 event: ChangeEvent<HTMLInputElement>
@@ -312,7 +324,7 @@ export default function CreatePostForm() {
                             render={({ field }) => (
                                 <FormItem className="flex flex-row items-start space-x-3 space-y-0 rounded-md border p-4">
                                     <FormControl>
-                                        <Checkbox 
+                                        <Checkbox
                                             checked={field.value}
                                             onCheckedChange={field.onChange}
                                         />
@@ -379,7 +391,7 @@ export default function CreatePostForm() {
                                 <FormItem>
                                     <FormLabel>Contact No.</FormLabel>
                                     <FormControl>
-                                        <Input {...field} />
+                                        <Input {...field} type="number" />
                                     </FormControl>
                                     <FormDescription>
                                         Please provide your phone number.
@@ -408,11 +420,11 @@ export default function CreatePostForm() {
                                         }}
                                         endpoint="imageUploader"
                                         onClientUploadComplete={(res) => {
-                                            console.log(res);
-                                            form.setValue(
-                                                "images",
-                                                res.map((item) => item?.url)
+                                            const images = res.map(
+                                                (item) => item?.url
                                             );
+                                            setUploadedImages(images);
+                                            form.setValue("images", images);
                                         }}
                                         onUploadError={(error: Error) => {
                                             alert(`ERROR! ${error.message}`);
@@ -420,6 +432,18 @@ export default function CreatePostForm() {
                                     />
                                 </FormControl>
                                 <FormMessage />
+                                <div className="grid grid-cols-4 gap-2">
+                                    {uploadedImages &&
+                                        uploadedImages.map((img) => (
+                                            <Image
+                                                src={img}
+                                                alt="uploaded image"
+                                                width={100}
+                                                height={100}
+                                                quality={50}
+                                            />
+                                        ))}
+                                </div>
                             </FormItem>
                         )}
                     />
