@@ -12,7 +12,6 @@ import {
 import { BathIcon, BedIcon, LocateIcon } from "lucide-react";
 import Link from "next/link";
 import { LazyLoadImage } from "react-lazy-load-image-component";
-import "react-lazy-load-image-component/src/effects/blur.css";
 import { PostWithRating } from "../types";
 
 export function PostCard({

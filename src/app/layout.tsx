@@ -6,6 +6,7 @@ import RQProvider from "@/components/react-query-provider";
 import { Toaster } from "sonner";
 
 import "./globals.css";
+import "react-lazy-load-image-component/src/effects/blur.css";
 
 const geistSans = localFont({
     src: "./fonts/GeistVF.woff",
